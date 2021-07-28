@@ -4,7 +4,10 @@ const contactsPath = path.resolve('./db/contacts.json');
 
 function listContacts() {
   fs.readFile(contactsPath, 'utf8', function (error, data) {
-    if (error) console.log(error);
+    if (error) {
+      console.error(error.message);
+      return;
+    }
 
     const parsedData = JSON.parse(data, null, ' ');
     console.table(parsedData);
@@ -13,7 +16,10 @@ function listContacts() {
 
 function getContactById(contactId) {
   fs.readFile(contactsPath, 'utf8', function (error, data) {
-    if (error) console.log(error);
+    if (error) {
+      console.error(error.message);
+      return;
+    }
 
     const parsedData = JSON.parse(data);
     const contact = parsedData.find(({ id }) => id === +contactId);
@@ -23,14 +29,19 @@ function getContactById(contactId) {
 
 function removeContact(contactId) {
   fs.readFile(contactsPath, 'utf8', function (error, data) {
-    if (error) console.log(error);
+    if (error) {
+      console.error(error.message);
+      return;
+    }
 
     const parsedData = JSON.parse(data);
     const dataToUpdate = parsedData.filter(({ id }) => id !== +contactId);
     const stringifiedData = JSON.stringify(dataToUpdate, null, ' ');
 
     fs.writeFile(contactsPath, stringifiedData, function (error) {
-      if (error) console.log(error);
+      if (error) {
+        console.error(error.message);
+      }
     });
 
     const parsedUpdatedData = JSON.parse(stringifiedData, null, ' ');
@@ -47,14 +58,19 @@ function addContact(name, email, phone) {
   };
 
   fs.readFile(contactsPath, 'utf8', function (error, data) {
-    if (error) console.log(error);
+    if (error) {
+      console.error(error.message);
+      return;
+    }
 
     const parsedData = JSON.parse(data);
     parsedData.push(newContact);
     const stringifiedData = JSON.stringify(parsedData, null, ' ');
 
     fs.writeFile(contactsPath, stringifiedData, function (error) {
-      if (error) console.log(error);
+      if (error) {
+        console.error(error.message);
+      }
     });
 
     const parsedUpdatedData = JSON.parse(stringifiedData, null, ' ');
