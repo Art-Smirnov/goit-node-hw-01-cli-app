@@ -3,19 +3,18 @@ const path = require('path');
 const contactsPath = path.resolve('./db/contacts.json');
 
 function listContacts() {
-  fs.readFile(contactsPath, 'utf8', function (error, data) {
+  fs.readFile(contactsPath, function (error, data) {
     if (error) {
       console.error(error.message);
       return;
     }
-
     const parsedData = JSON.parse(data, null, ' ');
     console.table(parsedData);
   });
 }
 
 function getContactById(contactId) {
-  fs.readFile(contactsPath, 'utf8', function (error, data) {
+  fs.readFile(contactsPath, function (error, data) {
     if (error) {
       console.error(error.message);
       return;
@@ -28,7 +27,7 @@ function getContactById(contactId) {
 }
 
 function removeContact(contactId) {
-  fs.readFile(contactsPath, 'utf8', function (error, data) {
+  fs.readFile(contactsPath, function (error, data) {
     if (error) {
       console.error(error.message);
       return;
@@ -57,7 +56,7 @@ function addContact(name, email, phone) {
     phone,
   };
 
-  fs.readFile(contactsPath, 'utf8', function (error, data) {
+  fs.readFile(contactsPath, function (error, data) {
     if (error) {
       console.error(error.message);
       return;
